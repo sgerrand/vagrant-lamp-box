@@ -22,7 +22,7 @@
 set_unless[:mysql][:server_debian_password] = secure_password
 set_unless[:mysql][:server_root_password] = secure_password
 set_unless[:mysql][:server_repl_password] = secure_password
-set_unless[:mysql][:bind_address]         = ipaddress
+set_unless[:mysql][:bind_address]         = "0.0.0.0"
 set_unless[:mysql][:datadir]              = "/var/lib/mysql"
 
 if attribute?(:ec2)

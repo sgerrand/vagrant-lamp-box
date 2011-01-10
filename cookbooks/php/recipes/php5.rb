@@ -19,6 +19,7 @@
 #
 
 include_recipe "apache2"
+include_recipe "php::module_mcrypt"
 include_recipe "php::module_mysql"
 include_recipe "php::module_ldap"
 include_recipe "php::module_memcache"

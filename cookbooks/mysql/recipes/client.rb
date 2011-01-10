@@ -18,11 +18,14 @@
 #
 
 p = package "mysql-devel" do
+#package "mysql-devel" do
   package_name value_for_platform(
     [ "centos", "redhat", "suse" ] => { "default" => "mysql-devel" },
-    "default" => 'libmysqlclient-dev'
+#    "default" => 'libmysqlclient-dev'
+    "default" => 'libmysqlclient15-dev'
   )
-  action :nothing
+  action :install
+#  action :upgrade
 end
 
 p.run_action(:install)
