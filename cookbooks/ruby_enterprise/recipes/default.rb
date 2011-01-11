@@ -26,6 +26,8 @@
 if ( node[:platform] == 'ubuntu' )
   if ( node[:kernel][:machine] == 'x86_64' )
     kernel_machine = 'amd64'
+  elsif ( node[:kernel][:machine] == 'i686' )
+    kernel_machine = 'i386'
   else
     kernel_machine = 'i386'
   end
@@ -33,20 +35,22 @@ if ( node[:platform] == 'ubuntu' )
   remote_file "/tmp/ruby-enterprise_#{node[:ruby_enterprise][:version]}_#{kernel_machine}_#{node[:platform]}#{node[:platform_version]}.deb" do
     case node[:platform_version]
       when "8.04" then 
-        if node[:kernel][:machine] == "i386"
+        if kernel_machine == "i386"
           dir_num = "71099"
-        elsif node[:kernel][:machine] == "amd64"
+        elsif kernel_machine == "amd64"
           dir_num = "71097"
         end
       when "10.04" then 
-        if node[:kernel][:machine] == "i386"
+        if kernel_machine == "i386"
           dir_num = "71100"
-        elsif node[:kernel][:machine] == "amd64"
+        elsif kernel_machine == "amd64"
           dir_num = "71098"
         end
     end
+    
+    external_file = "http://rubyforge.org/frs/download.php/#{dir_num}/ruby-enterprise_#{node[:ruby_enterprise][:version]}_#{kernel_machine}_#{node[:platform]}#{node[:platform_version]}.deb"
 
-    source "http://rubyforge.org/frs/download.php/#{dir_num}/ruby-enterprise_#{node[:ruby_enterprise][:version]}_#{kernel_machine}_#{node[:platform]}#{node[:platform_version]}.deb"
+    source external_file
   end
    
   bash "Install Ruby Enterprise Edition from deb" do
