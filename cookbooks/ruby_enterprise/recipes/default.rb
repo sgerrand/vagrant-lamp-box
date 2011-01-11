@@ -23,6 +23,8 @@
 # limitations under the License.
 #
 
+include_recipe "build-essential"
+
 if ( node[:platform] == 'ubuntu' )
   if ( node[:kernel][:machine] == 'x86_64' )
     kernel_machine = 'amd64'
@@ -91,8 +93,6 @@ if ( node[:platform] == 'ubuntu' )
   end
 
 else
-
-  include_recipe "build-essential"
 
   %w{ libssl-dev libreadline5-dev }.each do |pkg|
     package pkg
